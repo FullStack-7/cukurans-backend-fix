@@ -13,7 +13,11 @@ const userSchema = new mongoose.Schema({
   image: String,
   order:{
     type: mongoose.Schema.Types.ObjectId, ref: 'Order'
-  }
+  },
+  barberId:[{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Barber'
+  }]
 })
 
 const User = mongoose.model("User", userSchema)

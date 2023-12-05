@@ -9,7 +9,7 @@ module.exports = {
         try{
             const userLogin = req.body
 
-            const user = await User.findOne({email: userLogin.email}).populate('order')
+            const user = await User.findOne({email: userLogin.email}).populate('order barberId')
             if(!user) 
             throw new Error("invalid user")
 
@@ -30,13 +30,20 @@ module.exports = {
           orderData = null;
         }
 
+        if (user.barberId) {
+            barberData = user.barberId;
+        } else {
+            barberData = null
+        }
+
         res.json({
             message:"login successfull",
             userId: user._id,
             token,
             username: user.username,
             order: orderData,
-            role: user.role
+            role: user.role,
+            barberId: barberData
         })
 
 
